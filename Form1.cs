@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +16,17 @@ namespace BoardTest
         private double vertical;
         private double originalHorizontal;
         private double originalVertical;
+
+        private int drawHorizontal;
+        private int drawVertical;
+
+        private int cnt = 0;
+
+        public Form1(string sss)
+        {
+            InitializeComponent();
+
+        }
 
         public Form1()
         {
@@ -40,10 +51,16 @@ namespace BoardTest
                 Point point4 = new Point(470, 30 * i + 50);
                 g.DrawLine(pen0, point3, point4);
             }
+
+            
         }
+
+
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            
+
             Point p0 = this.PointToClient(Control.MousePosition);
             string X = p0.X.ToString();
             string Y = p0.Y.ToString();
@@ -56,6 +73,26 @@ namespace BoardTest
             horizontal = Math.Round((originalHorizontal - 50 )/ 30.0);
             vertical = Math.Round((originalVertical - 50 )/ 30.0);
             coordinateeee.Text = horizontal.ToString() + "," + vertical.ToString();
+
+
+            
+            Graphics g0 = this.CreateGraphics();
+            Rectangle rect = this.ClientRectangle;
+            rect = new Rectangle((int)(horizontal * 30) + 42, (int)(vertical * 30) + 42, 16, 16);
+            if(vertical>=0&&vertical<=14&&horizontal>=0&&horizontal<=14)
+            {
+                cnt++;
+                if (cnt % 2 == 0)
+                {
+                    Brush bush = new SolidBrush(Color.White);
+                    g0.FillEllipse(bush, rect);
+                }
+                else
+                {
+                    Brush bush = new SolidBrush(Color.Black);
+                    g0.FillEllipse(bush, rect);
+                }
+            }
         }
 
         private void label1_Click(object sender, EventArgs e) { }
