@@ -16,7 +16,13 @@ namespace BoardTest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Welcome w1 = new Welcome();
+            w1.ShowDialog();
+            if (w1.DialogResult == DialogResult.OK)
+            {
+                Application.Run(new Form1(w1.off));
+            }
         }
     }
 }
